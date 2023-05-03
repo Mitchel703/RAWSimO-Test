@@ -180,13 +180,17 @@ namespace RAWSimO.Core.Control.Defaults.ItemStorage
                 int desiredStorageClass = _classManager.DetermineStorageClass(bundle);
 
                 // Choose it
-                Pod chosenPod = ChoosePod(bundle);
+                Pod chosenPod = ChoosePodByConfigRunning(desiredStorageClass, bundle);
 
                 // If we found a pod, assign the bundle to it
                 if (chosenPod != null)
                 {
                     AddToReadyList(bundle, chosenPod);
-                }     
+                }    
+                else
+                {
+                    continue;
+                }
             }
         }
 
