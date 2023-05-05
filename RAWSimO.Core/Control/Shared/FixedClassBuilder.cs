@@ -298,11 +298,14 @@ namespace RAWSimO.Core.Control.Shared
             // Allocate storage locations to classes
             _classStorageLocations = new List<Waypoint>[_classCount];
             List<Waypoint> tempPodsOrdered = _storageLocationsOrdered.ToList();
+            var classFractions = _classBorders.ToList();
+            for (int i = _classCount - 1; i > 0; i--)
+                classFractions[i] -= classFractions[i - 1];
             for (int i = 0; i < _classCount; i++)
             {
                 if (i < _classCount - 1)
                 {
-                    _classStorageLocations[i] = tempPodsOrdered.Take((int)(_classBorders[i] * _storageLocationsOrdered.Count)).ToList();
+                    _classStorageLocations[i] = tempPodsOrdered.Take((int)(classFractions[i] * _storageLocationsOrdered.Count)).ToList();
                     tempPodsOrdered.RemoveRange(0, _classStorageLocations[i].Count);
                 }
                 else
