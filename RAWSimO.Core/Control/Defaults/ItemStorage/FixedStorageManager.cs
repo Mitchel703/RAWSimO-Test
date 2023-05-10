@@ -66,16 +66,6 @@ namespace RAWSimO.Core.Control.Defaults.ItemStorage
         {
             // Just choose a pod as if the system was already running
             Pod chosenPod = ChoosePod(bundle);
-            // Store the inital contents of each pod
-            /*var initialContentsDictionary = new Dictionary<Pod, List<ItemDescription>>();
-            List<ItemDescription> _initialContents;
-            if (!initialContentsDictionary.TryGetValue(chosenPod, out _initialContents))
-            {
-                _initialContents = new List<ItemDescription>();
-                initialContentsDictionary.Add(chosenPod, _initialContents);
-            }
-            initialContentsDictionary[chosenPod].Add(bundle.ItemDescription);*/
-
             if (chosenPod == null)
                 throw new InvalidOperationException("Could not find a pod for the given bundle - are we at capacity?");
             else
