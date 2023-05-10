@@ -188,6 +188,10 @@ namespace RAWSimO.Core.Control.Shared
         /// The item-descriptions in a frequency sorted manner.
         /// </summary>
         private List<ItemDescription> _itemDescriptionsOrdered;
+        /// <summary>
+        /// The item-descriptions in a frequency sorted manner.
+        /// </summary>
+        private List<ItemDescription> _itemDescriptionsFixed;
 
         /// <summary>
         /// The last time the storage classes were restructured to fit the current demand.
@@ -392,7 +396,8 @@ namespace RAWSimO.Core.Control.Shared
         private void ReallocateItems()
         {
             // Sort item descriptions by their current frequency
-            _itemDescriptionsOrdered = Instance.ItemDescriptions.OrderByDescending(i => i.OrderCount).ToList();
+            //_itemDescriptionsOrdered = Instance.ItemDescriptions.OrderByDescending(i => i.OrderCount).ToList();
+            _itemDescriptionsFixed = Instance.ItemDescriptions.ToList();
 
             // Determine the shares of the capacity of the storage pod classes
             double overallCapacity = _classStoragePods.Sum(l => l.Sum(p => p.Capacity));
@@ -401,29 +406,35 @@ namespace RAWSimO.Core.Control.Shared
                 classStorageCapacityShares[i] = _classStoragePods[i].Sum(p => p.Capacity) / overallCapacity;
 
             // Get weighted item demand
-            double overallDemand = _itemDescriptionsOrdered.Sum(i => i.OrderCount);
-            double overallWeight = _itemDescriptionsOrdered.Sum(i => i.Weight);
-            Dictionary<ItemDescription, double> weightedItemDemand = _itemDescriptionsOrdered.ToDictionary(
+            double overallDemand = _itemDescriptionsFixed.Sum(i => i.OrderCount);
+            double overallWeight = _itemDescriptionsFixed.Sum(i => i.Weight);
+            Dictionary<ItemDescription, double> weightedItemDemand = _itemDescriptionsFixed.ToDictionary(
                 k => k,
                 v => (v.OrderCount / overallDemand + v.Weight / overallWeight) / 2.0);
 
             // Group items to classes
             _itemClasses = new Dictionary<ItemDescription, int>();
-            int currentClass = 0; double aggregatedWeightedDemand = 0; double aggregatedWeightedCapacity = classStorageCapacityShares[0]; int counter = 0;
-            foreach (var itemDescription in _itemDescriptionsOrdered)
+            int currentClass = 0; 
+            double aggregatedWeightedDemand = 0; 
+            double aggregatedWeightedCapacity = classStorageCapacityShares[0];
+            double[] ItemDivision = { 0.057, 0.249 };
+            int counter = 0;
+
+            foreach (var itemDescription in _itemDescriptionsFixed)
             {
                 // Keep track of estimated demand for capacity within the class
                 aggregatedWeightedDemand += weightedItemDemand[itemDescription];
                 // Check whether this item description still virtually fits into the class
                 //if (aggregatedWeightedDemand > aggregatedWeightedCapacity)
-                if (counter > 0.2 * (_itemDescriptionsOrdered.Count - 1) && counter <= 0.5 * (_itemDescriptionsOrdered.Count - 1))
+                if (counter > ItemDivision[0] * (_itemDescriptionsFixed.Count - 1) && counter <= ItemDivision[1] * (_itemDescriptionsFixed.Count - 1))
                 {
                     // Update current virtual capacity
                     currentClass = 1;
+                    //currentClass++;
                     //if (currentClass < _classCount)
-                    //aggregatedWeightedCapacity += classStorageCapacityShares[currentClass];
+                    //    aggregatedWeightedCapacity += classStorageCapacityShares[currentClass];
                 }
-                else if (counter > 0.5 * (_itemDescriptionsOrdered.Count - 1))
+                else if (counter > ItemDivision[1] * (_itemDescriptionsFixed.Count - 1))
                 {
                     currentClass = 2;
                 }

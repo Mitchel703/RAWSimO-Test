@@ -218,7 +218,7 @@ namespace RAWSimO.Core.Configurations
         /// The last border will always be 1.0, because we want to use all our storage locations.
         /// As one example: "0.1,0.3,1.0" will lead to 3 classes that contain 10 % of the pods in the first class, 20 % in the second one and the rest in the last class.
         /// </summary>
-        public string ClassBorders = "0.1" + IOConstants.DELIMITER_LIST + "0.3" + IOConstants.DELIMITER_LIST + "1.0";
+        public string ClassBorders = "0.2" + IOConstants.DELIMITER_LIST + "0.5" + IOConstants.DELIMITER_LIST + "1.0";
         /// <summary>
         /// The time between two subsequent runs of the re-allocation of item-descriptions and pods to the storage classes.
         /// </summary>
@@ -262,7 +262,7 @@ namespace RAWSimO.Core.Configurations
         /// The last border will always be 1.0, because we want to use all our storage locations.
         /// As one example: "0.1,0.3,1.0" will lead to 3 classes that contain 10 % of the pods in the first class, 20 % in the second one and the rest in the last class.
         /// </summary>
-        public string ClassBorders = "0.1" + IOConstants.DELIMITER_LIST + "0.3" + IOConstants.DELIMITER_LIST + "1.0";
+        public string ClassBorders = "0.2" + IOConstants.DELIMITER_LIST + "0.5" + IOConstants.DELIMITER_LIST + "1.0";
         /// <summary>
         /// The time between two subsequent runs of the re-allocation of item-descriptions and pods to the storage classes.
         /// </summary>
