@@ -65,7 +65,7 @@ namespace RAWSimO.Core.Configurations
         /// <summary>
         /// The fraction of the storage used for A items.
         /// </summary>
-        public string ClassBorders = "0.1" + IOConstants.DELIMITER_LIST + "0.3" + IOConstants.DELIMITER_LIST + "1.0";
+        public string ClassBorders = "0.2" + IOConstants.DELIMITER_LIST + "0.5" + IOConstants.DELIMITER_LIST + "1.0";
         /// <summary>
         /// The time between two subsequent runs of the re-allocation of item-descriptions and pods to the storage classes.
         /// </summary>
@@ -77,7 +77,7 @@ namespace RAWSimO.Core.Configurations
         /// <summary>
         /// Indicates which rule to use to assign the storage locations to the different classes.
         /// </summary>
-        public FixedPodStorageLocationClassRule StorageLocationClassRule = FixedPodStorageLocationClassRule.OutputStationDistanceShortestTime;
+        public FixedPodStorageLocationClassRule StorageLocationClassRule = FixedPodStorageLocationClassRule.OutputStationDistanceEuclidean;
         /// <summary>
         /// Indicates how a free storage location is selected from all free storage locations of a class.
         /// </summary>
@@ -298,7 +298,7 @@ namespace RAWSimO.Core.Configurations
         /// <summary>
         /// The fraction of the storage used for A items.
         /// </summary>
-        public string ClassBorders = "0.1" + IOConstants.DELIMITER_LIST + "0.3" + IOConstants.DELIMITER_LIST + "1.0";
+        public string ClassBorders = "0.2" + IOConstants.DELIMITER_LIST + "0.5" + IOConstants.DELIMITER_LIST + "1.0";
         /// <summary>
         /// The time between two subsequent runs of the re-allocation of item-descriptions and pods to the storage classes.
         /// </summary>
@@ -310,7 +310,7 @@ namespace RAWSimO.Core.Configurations
         /// <summary>
         /// Indicates which rule to use to assign the storage locations to the different classes.
         /// </summary>
-        public TurnoverPodStorageLocationClassRule StorageLocationClassRule = TurnoverPodStorageLocationClassRule.OutputStationDistanceShortestTime;
+        public TurnoverPodStorageLocationClassRule StorageLocationClassRule = TurnoverPodStorageLocationClassRule.OutputStationDistanceEuclidean;
         /// <summary>
         /// Indicates how a free storage location is selected from all free storage locations of a class.
         /// </summary>
