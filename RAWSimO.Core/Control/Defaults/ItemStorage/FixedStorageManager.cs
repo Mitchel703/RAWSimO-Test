@@ -55,33 +55,7 @@ namespace RAWSimO.Core.Control.Defaults.ItemStorage
                 _lastChosenPodByClassReverse.Remove(pod);
             }
         }
-        /// <summary>
-        /// Creates a new instance of this manager.
-        /// </summary>
-        /// <param name="instance">The instance this manager belongs to.</param>
-        /*public FixedStorageManager(Instance instance) : base(instance)
-        {
-            _config = instance.ControllerConfig.ItemStorageConfig as FixedItemStorageConfiguration;
-        }*/
-        /// <summary>
-        /// Selects a pod for a bundle generated during initialization.
-        /// </summary>
-        /// <param name="instance">The active instance.</param>
-        /// <param name="bundle">The bundle to assign to a pod.</param>
-        /// <returns>The selected pod.</returns>
-        /*public override Pod SelectPodForInititalInventory(Instance instance, ItemBundle bundle)
-        {
-            // Add to a pod based on pods with similar content and then prioritizing pods closest to output stations
-            return instance.Pods
-                .Where(b => b.FitsForReservation(bundle))
-                //.OrderBy(p => instance.FrequencyTracker.GetStaticFrequency(bundle.ItemDescription) / p.DistanceToOutputStation())
-                .OrderByDescending(p => p.ItemDescriptionsContained.Sum(containedItem => instance.FrequencyTracker.GetMeasuredFrequency(bundle.ItemDescription, containedItem)))
-                .ThenBy(p => p.DistanceToOutputStation()) 
-                .First();
-        }*/
-
-        private Dictionary<Pod, List<ItemDescription>> initialContentsDictionary;
-
+  
         /// <summary>
         /// Selects a pod for a bundle generated during initialization.
         /// </summary>
@@ -107,26 +81,6 @@ namespace RAWSimO.Core.Control.Defaults.ItemStorage
             else
                 return chosenPod;
         }
-
-        /// <summary>
-        /// Selects a pod for a bundle generated during initialization.
-        /// </summary>
-        /// <param name="pod">The active instance.</param>
-        /// <returns>The selected pod.</returns>
-        /*private List<ItemDescription> GetInitialContents(Pod pod)
-        {
-            return initialContentsDictionary[pod];
-        }
-        /// <summary>
-        /// Selects a pod for a bundle generated during initialization.
-        /// </summary>
-        /// <param name="pod">The active instance.</param>
-        /// <param name="bundle">The bundle to assign to a pod.</param>
-        /// <returns>The selected pod.</returns>
-        private bool IsInitialContent(Pod pod, ItemBundle bundle)
-        {
-            return GetInitialContents(pod).Contains(bundle.ItemDescription);
-        }*/
 
         /// <summary>
         /// The config of this controller.
@@ -279,46 +233,6 @@ namespace RAWSimO.Core.Control.Defaults.ItemStorage
         }
 
         /// <summary>
-        /// Selects a pod for the given bundle.
-        /// </summary>
-        /// <param name="bundle">The bundle to select a pod for.</param>
-        /// <returns>The chosen pod.</returns>
-        public Pod ChoosePodRunning(ItemBundle bundle)
-        {
-            // Get the storage class the item should end up in
-            int desiredStorageClass = _classManager.DetermineStorageClass(bundle);
-
-            // Try to allocate the item to its storage class - if not possible try neighboring classes
-            int currentClassTriedLow = desiredStorageClass; int currentClassTriedHigh = desiredStorageClass;
-            Pod chosenPod = null;
-            while (true)
-            {
-                // Try the less frequent class first
-                if (currentClassTriedLow < _classManager.ClassCount)
-                    chosenPod = ChoosePodByConfigRunning(currentClassTriedLow, bundle);
-                // Check whether we found a suitable pod of this class
-                if (chosenPod != null)
-                    break;
-
-                // Try the higher frequent class next
-                if (currentClassTriedHigh >= 0 && currentClassTriedHigh != currentClassTriedLow)
-                    chosenPod = ChoosePodByConfigRunning(currentClassTriedHigh, bundle);
-                // Check whether we found a suitable pod of this class
-                if (chosenPod != null)
-                    break;
-
-                // Update the class indeces to check next
-                currentClassTriedLow++; currentClassTriedHigh--;
-                // Check index correctness
-                if (currentClassTriedHigh < 0 && currentClassTriedLow >= _classManager.ClassCount)
-                    // We tried all classes - it won't fit
-                    break;
-            }
-            // Return it
-            return chosenPod;
-        }
-
-        /// <summary>
         /// Selects a pod for the bundle according to the desired class.
         /// </summary>
         /// <param name="classId">The class of the desired pod.</param>
@@ -327,38 +241,20 @@ namespace RAWSimO.Core.Control.Defaults.ItemStorage
         private Pod ChoosePodByConfigRunning(int classId, ItemBundle bundle)
         {
             Pod chosenPod = null;
-            // See whether we can recycle the last pod
-            //if (_lastChosenPodByClass.ContainsKey(classId) && _lastChosenPodByClass[classId].FitsForReservation(bundle))
-            //{
-            //    chosenPod = _lastChosenPodByClass[classId];
-            //}
-            //else
-            //{
-                // We can not recycle the last pod
-                //if (_config.EmptiestInsteadOfRandom)
-                //{
-                    // Find the new emptiest pod
-                    chosenPod = _classManager.GetClassPods(classId)
-                        .Where(b => b.FitsForReservation(bundle))
-                        .OrderBy(b => b.IsContained(bundle.ItemDescription) ? 0 : 1)
-                        .ThenBy(b => b.CountContained(bundle.ItemDescription))
-                        .FirstOrDefault();
-                //}
-                //else
-                //{
-                    // Find a new random pod
-                    //chosenPod = _classManager.GetClassPods(classId)
-                        //.Where(b => b.FitsForReservation(bundle))
-                        //.OrderBy(b => b.Instance.Randomizer.NextDouble())
-                        //.FirstOrDefault();
-                //}
+            // Find the new emptiest pod
+            chosenPod = _classManager.GetClassPods(classId)
+                .Where(b => b.FitsForReservation(bundle))
+                .OrderBy(b => b.IsContained(bundle.ItemDescription) ? 0 : 1)
+                .ThenBy(b => b.CountContained(bundle.ItemDescription))
+                .FirstOrDefault();
+
                 // Remember the pod for next time
                 if (chosenPod != null)
                 {
                     _lastChosenPodByClass[classId] = chosenPod;
                     _lastChosenPodByClassReverse[chosenPod] = classId;
                 }
-            //}
+
             // Return the choice
             return chosenPod;
         }
