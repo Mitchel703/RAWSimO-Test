@@ -417,7 +417,7 @@ namespace RAWSimO.Core.Control.Shared
             int currentClass = 0; 
             double aggregatedWeightedDemand = 0; 
             double aggregatedWeightedCapacity = classStorageCapacityShares[0];
-            double[] ItemDivision = { 0.057, 0.249 };
+            double[] ItemDivision = { 0.057, 0.248 };
             int counter = 0;
 
             foreach (var itemDescription in _itemDescriptionsFixed)

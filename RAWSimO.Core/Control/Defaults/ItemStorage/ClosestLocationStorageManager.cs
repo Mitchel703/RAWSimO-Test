@@ -70,15 +70,20 @@ namespace RAWSimO.Core.Control.Defaults.ItemStorage
         /// </summary>
         protected override void DecideAboutPendingBundles()
         {
-            foreach (var bundle in _bundleToStation.Keys.ToArray())
+            foreach (var bundle in _pendingBundles.ToArray())
+            //foreach (var bundle in _bundleToStation.Keys.ToArray())
             {
+                var inputStation = Instance.InputStations
+                    .OrderBy(p => Instance.Randomizer.NextDouble())
+                    .First();
+                
                 // Find a pod
                 Pod chosenPod = Instance.Pods
                     .Where(b => b.FitsForReservation(bundle))
                     .OrderBy(b =>
                         b.InUse ?
-                        Instance.WrongTierPenaltyDistance + Distances.CalculateEuclid(_bundleToStation[bundle], b, Instance.WrongTierPenaltyDistance) :
-                        Distances.CalculateEuclid(_bundleToStation[bundle], b, Instance.WrongTierPenaltyDistance))
+                        Instance.WrongTierPenaltyDistance + Distances.CalculateEuclid(inputStation, b, Instance.WrongTierPenaltyDistance) :
+                        Distances.CalculateEuclid(inputStation, b, Instance.WrongTierPenaltyDistance))
                     .FirstOrDefault();
                 // If we found a pod, assign the bundle to it
                 if (chosenPod != null)
