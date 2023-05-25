@@ -1,0 +1,64 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "RAWSimO.DataPreparation/1.0.0": {
+        "dependencies": {
+          "RAWSimO.Core": "1.0.0",
+          "RAWSimO.Toolbox": "1.0.0"
+        },
+        "runtime": {
+          "RAWSimO.DataPreparation.dll": {}
+        }
+      },
+      "RAWSimO.Core/1.0.0": {
+        "dependencies": {
+          "RAWSimO.MultiAgentPathFinding": "1.0.0",
+          "RAWSimO.Toolbox": "1.0.0"
+        },
+        "runtime": {
+          "RAWSimO.Core.dll": {}
+        }
+      },
+      "RAWSimO.MultiAgentPathFinding/1.0.0": {
+        "dependencies": {
+          "RAWSimO.Toolbox": "1.0.0"
+        },
+        "runtime": {
+          "RAWSimO.MultiAgentPathFinding.dll": {}
+        }
+      },
+      "RAWSimO.Toolbox/1.0.0": {
+        "runtime": {
+          "RAWSimO.Toolbox.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RAWSimO.DataPreparation/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RAWSimO.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RAWSimO.MultiAgentPathFinding/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RAWSimO.Toolbox/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

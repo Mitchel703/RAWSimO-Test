@@ -1,0 +1,132 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "RAWSimO.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "RAWSimO.MultiAgentPathFinding": "1.0.0",
+          "RAWSimO.Toolbox": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RAWSimO.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RAWSimO.Core.dll": {}
+        }
+      },
+      "RAWSimO.MultiAgentPathFinding/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "RAWSimO.Toolbox": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RAWSimO.MultiAgentPathFinding.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RAWSimO.MultiAgentPathFinding.dll": {}
+        }
+      },
+      "RAWSimO.Toolbox/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/RAWSimO.Toolbox.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RAWSimO.Toolbox.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RAWSimO.Core/1.0.0": {
+      "type": "project",
+      "path": "../RAWSimO.Core/RAWSimO.Core.csproj",
+      "msbuildProject": "../RAWSimO.Core/RAWSimO.Core.csproj"
+    },
+    "RAWSimO.MultiAgentPathFinding/1.0.0": {
+      "type": "project",
+      "path": "../RAWSimO.MultiAgentPathFinding/RAWSimO.MultiAgentPathFinding.csproj",
+      "msbuildProject": "../RAWSimO.MultiAgentPathFinding/RAWSimO.MultiAgentPathFinding.csproj"
+    },
+    "RAWSimO.Toolbox/1.0.0": {
+      "type": "project",
+      "path": "../RAWSimO.Toolbox/RAWSimO.Toolbox.csproj",
+      "msbuildProject": "../RAWSimO.Toolbox/RAWSimO.Toolbox.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "RAWSimO.Core >= 1.0.0",
+      "RAWSimO.Toolbox >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\mitch\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\mitch\\source\\repos\\RAWSimO-Test\\RAWSimO.DataPreparation\\RAWSimO.DataPreparation.csproj",
+      "projectName": "RAWSimO.DataPreparation",
+      "projectPath": "C:\\Users\\mitch\\source\\repos\\RAWSimO-Test\\RAWSimO.DataPreparation\\RAWSimO.DataPreparation.csproj",
+      "packagesPath": "C:\\Users\\mitch\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mitch\\Source\\Repos\\RAWSimO-Test\\RAWSimO.DataPreparation\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\mitch\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "C:\\Users\\mitch\\source\\repos\\RAWSimO-Test\\RAWSimO.Core\\RAWSimO.Core.csproj": {
+              "projectPath": "C:\\Users\\mitch\\source\\repos\\RAWSimO-Test\\RAWSimO.Core\\RAWSimO.Core.csproj"
+            },
+            "C:\\Users\\mitch\\source\\repos\\RAWSimO-Test\\RAWSimO.Toolbox\\RAWSimO.Toolbox.csproj": {
+              "projectPath": "C:\\Users\\mitch\\source\\repos\\RAWSimO-Test\\RAWSimO.Toolbox\\RAWSimO.Toolbox.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
